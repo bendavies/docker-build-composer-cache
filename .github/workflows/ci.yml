@@ -22,7 +22,7 @@ jobs:
       - name: "Build docker image - production-composer-dependencies"
         uses: docker/build-push-action@v2
         with:
-          target: production
+          target: production-composer-dependencies
           tags: ghcr.io/bendavies/docker-build-composer-cache:production-composer-dependencies
           push: true
           cache-from: type=gha,scope=production-composer-dependencies
@@ -31,7 +31,7 @@ jobs:
       - name: "Build docker image - development-composer-dependencies"
         uses: docker/build-push-action@v2
         with:
-          target: production
+          target: development-composer-dependencies
           tags: ghcr.io/bendavies/docker-build-composer-cache:development-composer-dependencies
           push: true
           cache-from: |
