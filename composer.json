@@ -1,4 +1,5 @@
 {
+    "foo": 1,
     "name": "bendavies/docker-build-composer-cache",
     "require": {
         "symfony/string": "^6.0"
