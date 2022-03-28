@@ -19,13 +19,35 @@ jobs:
       - name: "Install Build X"
         uses: docker/setup-buildx-action@v1
 
+      - name: "Build docker image - production-composer-dependencies"
+        uses: docker/build-push-action@v2
+        with:
+          target: production
+          tags: ghcr.io/bendavies/docker-build-composer-cache:production-composer-dependencies
+          push: true
+          cache-from: type=gha,scope=production-composer-dependencies
+          cache-to: type=gha,mode=max,scope=production-composer-dependencies
+
+      - name: "Build docker image - development-composer-dependencies"
+        uses: docker/build-push-action@v2
+        with:
+          target: production
+          tags: ghcr.io/bendavies/docker-build-composer-cache:development-composer-dependencies
+          push: true
+          cache-from: |
+            type=gha,scope=production-composer-dependencies
+            type=gha,scope=development-composer-dependencies
+          cache-to: type=gha,mode=max,scope=development-composer-dependencies
+
       - name: "Build docker image - production"
         uses: docker/build-push-action@v2
         with:
           target: production
           tags: ghcr.io/bendavies/docker-build-composer-cache:production
           push: true
-          cache-from: type=gha,scope=production
+          cache-from: |
+            type=gha,scope=production-composer-dependencies
+            type=gha,scope=production
           cache-to: type=gha,mode=max,scope=production
 
       - name: "Build docker image - development"
@@ -35,6 +57,7 @@ jobs:
           tags: ghcr.io/bendavies/docker-build-composer-cache:development
           push: true
           cache-from: |
+            type=gha,scope=development-composer-dependencies
             type=gha,scope=production
             type=gha,scope=development
           cache-to: type=gha,mode=max,scope=development
