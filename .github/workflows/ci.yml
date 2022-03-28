@@ -26,9 +26,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           target: development
-          tags: ghcr.io/bendavies/docker-build-composer-cache:developement
+          tags: ghcr.io/bendavies/docker-build-composer-cache:development
           push: false
-          load: true
           cache-from: |
             type=gha,scope=production
             type=gha,scope=development
